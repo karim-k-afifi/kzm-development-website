@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KZM Development — AI, Games & Apps</title>
+  <meta name="description" content="KZM Development crafts intelligent AI solutions, immersive mobile games, and innovative applications. Based in Giza, Egypt.">
+  <meta property="og:title" content="KZM Development — AI, Games & Apps">
+  <meta property="og:description" content="Crafting intelligent solutions & immersive experiences. AI, Games, Apps.">
+  <meta property="og:image" content="assets/images/kzm-logo-dark-bg.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    :root {
+      --bg-primary: #0F172A;
+      --bg-card: #1E293B;
+      --bg-card-hover: #263548;
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --accent-teal: #10B981;
+      --accent-cyan: #06B6D4;
+      --gradient: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      --max-w: 1100px;
+      --radius: 12px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent-teal); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--accent-cyan); }
+    img { max-width: 100%; display: block; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: rgba(15,23,42,.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(148,163,184,.08); }
+    nav .logo { height: 28px; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul li a { color: var(--text-secondary); font-size: .875rem; font-weight: 500; letter-spacing: .02em; }
+    nav ul li a:hover { color: var(--text-primary); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 40px; position: relative; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(6,182,212,.08) 0%, transparent 70%); pointer-events: none; }
+    .hero-logo { width: 140px; height: 140px; margin-bottom: 36px; border-radius: 28px; }
+    .hero h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -.02em; max-width: 640px; margin-bottom: 16px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary); letter-spacing: .15em; font-weight: 500; margin-bottom: 48px; }
+    .scroll-indicator { position: absolute; bottom: 32px; width: 24px; height: 40px; border: 2px solid var(--text-secondary); border-radius: 12px; opacity: .5; }
+    .scroll-indicator::after { content: ''; position: absolute; top: 6px; left: 50%; width: 4px; height: 8px; margin-left: -2px; background: var(--text-secondary); border-radius: 2px; animation: scrollDot 2s infinite; }
+    @keyframes scrollDot { 0%,100% { opacity: 1; transform: translateY(0); } 50% { opacity: .3; transform: translateY(12px); } }
+
+    /* SECTIONS */
+    section { padding: 100px 24px; }
+    .container { max-width: var(--max-w); margin: 0 auto; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -.02em; }
+    .section-desc { color: var(--text-secondary); max-width: 600px; margin-bottom: 48px; font-size: 1.05rem; }
+    .section-title .accent { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* ABOUT */
+    .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .about-text p { color: var(--text-secondary); margin-bottom: 16px; font-size: 1.05rem; }
+    .about-text .location { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-teal); font-weight: 500; margin-top: 8px; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-card { background: var(--bg-card); padding: 28px; border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); }
+    .stat-card .num { font-size: 2rem; font-weight: 700; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-card .label { color: var(--text-secondary); font-size: .875rem; margin-top: 4px; }
+
+    /* GAME CARDS */
+    .games-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .game-card { background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); padding: 32px 28px; text-align: center; transition: transform .3s ease, border-color .3s ease, background .3s ease; }
+    .game-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,.25); background: var(--bg-card-hover); }
+    .game-card img { width: 88px; height: 88px; border-radius: 20px; margin: 0 auto 20px; }
+    .game-card h3 { font-size: 1.15rem; margin-bottom: 4px; }
+    .game-card .game-sub { font-size: .8rem; color: var(--accent-cyan); margin-bottom: 12px; font-weight: 500; letter-spacing: .04em; }
+    .game-card p { color: var(--text-secondary); font-size: .925rem; margin-bottom: 20px; }
+    .badge { display: inline-block; font-size: .7rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: .04em; }
+    .badge-green { background: rgba(16,185,129,.15); color: var(--accent-teal); }
+    .badge-coming { color: var(--text-secondary); font-size: .75rem; margin-left: 6px; }
+    .btn { display: inline-block; padding: 10px 24px; border-radius: 8px; font-size: .875rem; font-weight: 600; transition: all .2s; cursor: pointer; border: none; margin-top: 12px; }
+    .btn-primary { background: var(--gradient); color: #fff; }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); color: #fff; }
+
+    /* AI CARDS */
+    .ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .ai-card { background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); padding: 32px 28px; transition: transform .3s ease, border-color .3s ease; }
+    .ai-card:hover { transform: translateY(-4px); border-color: rgba(6,182,212,.25); }
+    .ai-card .icon { font-size: 2rem; margin-bottom: 16px; }
+    .ai-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .ai-card p { color: var(--text-secondary); font-size: .9rem; }
+
+    /* APPS */
+    .apps-box { background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); padding: 56px 40px; text-align: center; max-width: 640px; margin: 0 auto; }
+    .apps-box p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 24px; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid rgba(148,163,184,.08); padding: 48px 24px 32px; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+    .footer-logo { height: 32px; opacity: .7; }
+    .footer-links { display: flex; gap: 24px; font-size: .875rem; }
+    .footer-links a { color: var(--text-secondary); }
+    .footer-bottom { max-width: var(--max-w); margin: 24px auto 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: .8rem; color: var(--text-secondary); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav ul { gap: 16px; }
+      nav ul li a { font-size: .8rem; }
+      .about-content { grid-template-columns: 1fr; gap: 32px; }
+      .games-grid, .ai-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      section { padding: 72px 20px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      nav ul { display: none; }
+      .hero-logo { width: 100px; height: 100px; border-radius: 22px; }
+      .about-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="logo">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#ai">AI</a></li>
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="mailto:thekzmdev@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <img src="assets/images/kzm-logo-dark-bg.png" alt="KZM Development Logo" class="hero-logo">
+  <h1>Crafting intelligent solutions &amp; immersive experiences</h1>
+  <div class="subtitle">AI &middot; Games &middot; Apps</div>
+  <a href="#about" class="scroll-indicator" aria-label="Scroll down"></a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container reveal">
+    <h2 class="section-title">About <span class="accent">KZM</span></h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>KZM Development builds high-quality mobile games, AI-powered solutions, and innovative applications. Founded by a senior AI/ML engineer with experience at leading financial institutions and global consultancies, we combine deep technical expertise with creative vision.</p>
+        <p>From the Central Bank of Egypt to Deloitte to a Canadian tech startup, our founder brings a unique blend of enterprise rigor and startup agility to everything we build.</p>
+        <div class="location">&#x1F4CD; Giza, Egypt</div>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><div class="num">3</div><div class="label">Games Shipped</div></div>
+        <div class="stat-card"><div class="num">AI</div><div class="label">ML &amp; Data Science</div></div>
+        <div class="stat-card"><div class="num">0</div><div class="label">Cloud Costs to Users</div></div>
+        <div class="stat-card"><div class="num">100%</div><div class="label">On-Device Processing</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" style="background: rgba(30,41,59,.4);">
+  <div class="container">
+    <h2 class="section-title reveal">Our <span class="accent">Games</span></h2>
+    <p class="section-desc reveal">Handcrafted mobile games built for pure fun — no ads pressure, no pay-to-win, just great gameplay.</p>
+    <div class="games-grid">
+      <div class="game-card reveal">
+        <img src="assets/images/flipfall-icon.png" alt="FlipFall">
+        <h3>FlipFall</h3>
+        <div class="game-sub">Gravity Arcade</div>
+        <p>Tap to flip gravity. Dodge walls. Chase your best score.</p>
+        <span class="badge badge-green">Android</span>
+        <span class="badge-coming">iOS Coming Soon</span><br>
+        <a href="#" class="btn btn-primary">Get on Google Play</a>
+      </div>
+      <div class="game-card reveal">
+        <img src="assets/images/beatdash-icon.png" alt="BeatDash">
+        <h3>BeatDash</h3>
+        <div class="game-sub">Rhythm Runner</div>
+        <p>Run to the beat. Jump on rhythm. Feel the music.</p>
+        <span class="badge badge-green">Android</span>
+        <span class="badge-coming">iOS Coming Soon</span><br>
+        <a href="#" class="btn btn-primary">Get on Google Play</a>
+      </div>
+      <div class="game-card reveal">
+        <img src="assets/images/gridfall-icon.png" alt="GridFall">
+        <h3>GridFall</h3>
+        <div class="game-sub">Tower Defense</div>
+        <p>Build towers. Defend your base. Survive the waves.</p>
+        <span class="badge badge-green">Android</span>
+        <span class="badge-coming">iOS Coming Soon</span><br>
+        <a href="#" class="btn btn-primary">Get on Google Play</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SOLUTIONS -->
+<section id="ai">
+  <div class="container">
+    <h2 class="section-title reveal"><span class="accent">AI</span> Solutions</h2>
+    <p class="section-desc reveal">Leveraging deep expertise in machine learning, data science, and AI engineering to build intelligent solutions.</p>
+    <div class="ai-grid">
+      <div class="ai-card reveal">
+        <div class="icon">&#x1F9E0;</div>
+        <h3>Machine Learning</h3>
+        <p>Custom ML models and pipelines tailored to your business needs.</p>
+        <br><span class="badge badge-green">Coming Soon</span>
+      </div>
+      <div class="ai-card reveal">
+        <div class="icon">&#x1F4CA;</div>
+        <h3>Data Science</h3>
+        <p>Analytics, insights, and data-driven decisions that move the needle.</p>
+        <br><span class="badge badge-green">Coming Soon</span>
+      </div>
+      <div class="ai-card reveal">
+        <div class="icon">&#x1F916;</div>
+        <h3>AI Agents</h3>
+        <p>Autonomous agents for complex workflows and intelligent automation.</p>
+        <br><span class="badge badge-green">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="apps" style="background: rgba(30,41,59,.4);">
+  <div class="container">
+    <h2 class="section-title reveal" style="text-align:center;">Mobile <span class="accent">Apps</span></h2>
+    <div class="apps-box reveal">
+      <p>Apps coming soon. We're building innovative mobile applications that run entirely on-device — no cloud costs, no subscriptions, just great software.</p>
+      <span class="badge badge-green">Coming Soon</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="footer-logo">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:thekzmdev@gmail.com">thekzmdev@gmail.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024&ndash;2025 KZM Development. All rights reserved.</span>
+    <span>Made in Egypt &#x1F1EA;&#x1F1EC;</span>
+  </div>
+</footer>
+
+<!-- Minimal scroll-reveal JS -->
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
