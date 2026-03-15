@@ -8,15 +8,28 @@
     <title>Privacy Policy — KZM Development</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
+        :root {
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --accent-teal: #10B981;
+            --accent-cyan: #06B6D4;
+            --gradient: linear-gradient(135deg, var(--accent-teal), var(--accent-cyan));
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: #0F172A;
+            font-family: var(--font);
+            background-color: var(--bg-primary);
             color: #E2E8F0;
             line-height: 1.7;
             min-height: 100vh;
@@ -33,6 +46,19 @@
             text-decoration: underline;
         }
 
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: rgba(15,23,42,.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(148,163,184,.08); }
+        nav .logo { height: 28px; }
+        nav ul { list-style: none; display: flex; gap: 28px; }
+        nav ul li a { color: var(--text-secondary); font-size: .875rem; font-weight: 500; letter-spacing: .02em; text-decoration: none; }
+        nav ul li a:hover { color: var(--text-primary); text-decoration: none; }
+
+        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-secondary); margin: 5px 0; transition: all .3s ease; border-radius: 2px; }
+        .nav-open .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-open .hamburger span:nth-child(2) { opacity: 0; }
+        .nav-open .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -45,7 +71,7 @@
         .container {
             max-width: 780px;
             margin: 0 auto;
-            padding: 24px 24px 64px;
+            padding: 90px 24px 64px;
         }
 
         h1 {
@@ -81,11 +107,11 @@
             color: #CBD5E1;
         }
 
-        ul li {
+        ul:not(nav ul) li {
             margin-bottom: 8px;
         }
 
-        ul li strong {
+        ul:not(nav ul) li strong {
             color: #E2E8F0;
         }
 
@@ -118,9 +144,17 @@
             font-size: 0.9rem;
         }
 
+        /* FOOTER */
+        footer { border-top: 1px solid rgba(148,163,184,.08); padding: 48px 24px 32px; }
+        .footer-inner { max-width: 780px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+        .footer-logo { height: 32px; opacity: .7; }
+        .footer-links { display: flex; gap: 24px; font-size: .875rem; }
+        .footer-links a { color: var(--text-secondary); }
+        .footer-bottom { max-width: 780px; margin: 24px auto 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: .8rem; color: var(--text-secondary); }
+
         @media (max-width: 600px) {
             .container {
-                padding: 16px 16px 48px;
+                padding: 80px 16px 48px;
             }
 
             h1 {
@@ -130,12 +164,37 @@
             h2 {
                 font-size: 1.15rem;
             }
+
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hamburger { display: block; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,23,42,.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 24px; gap: 12px; border-bottom: 1px solid rgba(148,163,184,.08); }
+            nav.nav-open ul { display: flex; }
         }
     </style>
 </head>
 <body>
+
+<!-- NAV -->
+<nav id="main-nav">
+    <a href="index.html"><img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="logo"></a>
+    <button class="hamburger" aria-label="Toggle menu" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">
+        <span></span><span></span><span></span>
+    </button>
+    <ul>
+        <li><a href="index.html#games">Games</a></li>
+        <li><a href="index.html#ai">AI</a></li>
+        <li><a href="index.html#apps">Apps</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+    </ul>
+</nav>
+
     <div class="container">
-        <a href="/" class="back-link">&lt; Back to Home</a>
+        <a href="index.html" class="back-link">&lt; Back to Home</a>
 
         <h1>Privacy Policy</h1>
         <p class="subtitle">KZM Development &mdash; FlipFall, BeatDash, GridFall</p>
@@ -265,5 +324,22 @@
             <strong>Effective Date:</strong> March 15, 2025
         </p>
     </div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <a href="index.html"><img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="footer-logo"></a>
+        <div class="footer-links">
+            <a href="index.html#contact">Contact</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="mailto:thekzmdev@gmail.com">thekzmdev@gmail.com</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2025&ndash;2026 KZM Development. All rights reserved.</span>
+        <span>Made in Egypt &#x1F1EA;&#x1F1EC;</span>
+    </div>
+</footer>
+
 </body>
 </html>

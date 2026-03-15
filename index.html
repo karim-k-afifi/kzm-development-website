@@ -42,6 +42,13 @@
     nav ul li a { color: var(--text-secondary); font-size: .875rem; font-weight: 500; letter-spacing: .02em; }
     nav ul li a:hover { color: var(--text-primary); }
 
+    /* Hamburger menu */
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-secondary); margin: 5px 0; transition: all .3s ease; border-radius: 2px; }
+    .nav-open .hamburger span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-open .hamburger span:nth-child(2) { opacity: 0; }
+    .nav-open .hamburger span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px 40px; position: relative; }
     .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(6,182,212,.08) 0%, transparent 70%); pointer-events: none; }
@@ -95,6 +102,24 @@
     .apps-box { background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); padding: 56px 40px; text-align: center; max-width: 640px; margin: 0 auto; }
     .apps-box p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 24px; }
 
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .contact-info p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 16px; }
+    .contact-info .contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .contact-info .contact-item .contact-icon { font-size: 1.4rem; width: 44px; height: 44px; background: var(--bg-card); border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(148,163,184,.08); flex-shrink: 0; }
+    .contact-info .contact-item div { color: var(--text-secondary); font-size: .95rem; }
+    .contact-info .contact-item strong { color: var(--text-primary); font-size: .85rem; display: block; margin-bottom: 2px; }
+    .contact-form { background: var(--bg-card); border-radius: var(--radius); border: 1px solid rgba(148,163,184,.08); padding: 36px; }
+    .contact-form label { display: block; color: var(--text-secondary); font-size: .85rem; font-weight: 500; margin-bottom: 6px; letter-spacing: .02em; }
+    .contact-form input,
+    .contact-form textarea { width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(148,163,184,.15); background: rgba(15,23,42,.6); color: var(--text-primary); font-family: var(--font); font-size: .95rem; margin-bottom: 20px; transition: border-color .2s; outline: none; }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent-teal); }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .contact-form .btn-submit { width: 100%; padding: 14px; border-radius: 8px; border: none; background: var(--gradient); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: opacity .2s, transform .2s; font-family: var(--font); }
+    .contact-form .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+    .contact-note { color: var(--text-secondary); font-size: .85rem; margin-top: 16px; text-align: center; }
+
     /* FOOTER */
     footer { border-top: 1px solid rgba(148,163,184,.08); padding: 48px 24px 32px; }
     .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
@@ -109,12 +134,15 @@
       nav ul li a { font-size: .8rem; }
       .about-content { grid-template-columns: 1fr; gap: 32px; }
       .games-grid, .ai-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       section { padding: 72px 20px; }
       .footer-inner { flex-direction: column; text-align: center; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
     @media (max-width: 480px) {
-      nav ul { display: none; }
+      .hamburger { display: block; }
+      nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,23,42,.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 16px 24px; gap: 12px; border-bottom: 1px solid rgba(148,163,184,.08); }
+      nav.nav-open ul { display: flex; }
       .hero-logo { width: 100px; height: 100px; border-radius: 22px; }
       .about-stats { grid-template-columns: 1fr; }
     }
@@ -123,14 +151,17 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="logo">
+<nav id="main-nav">
+  <a href="index.html"><img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="logo"></a>
+  <button class="hamburger" aria-label="Toggle menu" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">
+    <span></span><span></span><span></span>
+  </button>
   <ul>
-    <li><a href="#about">About</a></li>
     <li><a href="#games">Games</a></li>
     <li><a href="#ai">AI</a></li>
     <li><a href="#apps">Apps</a></li>
-    <li><a href="mailto:thekzmdev@gmail.com">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
   </ul>
 </nav>
 
@@ -155,8 +186,8 @@
       <div class="about-stats">
         <div class="stat-card"><div class="num">3</div><div class="label">Games Shipped</div></div>
         <div class="stat-card"><div class="num">AI</div><div class="label">ML &amp; Data Science</div></div>
-        <div class="stat-card"><div class="num">0</div><div class="label">Cloud Costs to Users</div></div>
-        <div class="stat-card"><div class="num">100%</div><div class="label">On-Device Processing</div></div>
+        <div class="stat-card"><div class="num">3+</div><div class="label">Years Experience</div></div>
+        <div class="stat-card"><div class="num">&#x1F680;</div><div class="label">Always Building</div></div>
       </div>
     </div>
   </div>
@@ -232,8 +263,44 @@
   <div class="container">
     <h2 class="section-title reveal" style="text-align:center;">Mobile <span class="accent">Apps</span></h2>
     <div class="apps-box reveal">
-      <p>Apps coming soon. We're building innovative mobile applications that run entirely on-device — no cloud costs, no subscriptions, just great software.</p>
+      <p>Innovative mobile applications coming soon. Stay tuned for exciting new releases.</p>
       <span class="badge badge-green">Coming Soon</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title reveal">Get <span class="accent">In Touch</span></h2>
+    <p class="section-desc reveal">Have a question, idea, or want to collaborate? We'd love to hear from you.</p>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">&#x2709;</div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:thekzmdev@gmail.com">thekzmdev@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">&#x1F4CD;</div>
+          <div>
+            <strong>Location</strong>
+            Giza, Egypt
+          </div>
+        </div>
+      </div>
+      <form class="contact-form" action="https://formspree.io/f/placeholder" method="POST">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+        <button type="submit" class="btn-submit">Send Message</button>
+        <p class="contact-note">Or email us directly at <a href="mailto:thekzmdev@gmail.com">thekzmdev@gmail.com</a></p>
+      </form>
     </div>
   </div>
 </section>
@@ -241,14 +308,15 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="footer-logo">
+    <a href="index.html"><img src="assets/images/kzm-horizontal-dark.png" alt="KZM Development" class="footer-logo"></a>
     <div class="footer-links">
+      <a href="#contact">Contact</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="mailto:thekzmdev@gmail.com">thekzmdev@gmail.com</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>&copy; 2024&ndash;2025 KZM Development. All rights reserved.</span>
+    <span>&copy; 2025&ndash;2026 KZM Development. All rights reserved.</span>
     <span>Made in Egypt &#x1F1EA;&#x1F1EC;</span>
   </div>
 </footer>
